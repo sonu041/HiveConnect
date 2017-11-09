@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<form action="GeoFind" method="post">
+Enter IP address:
+	<input type="textbox" name="ipaddress" id="ipaddress"/>
+	<input type="button" onClick="getGeoData()" value="Submit"/>
+</form>
+
+<table id="records"></table>
+ 
+<script>
+function getGeoData() {
+	var ipaddr = $('#ipaddress').val();
+	console.log(ipaddr);
+  var url = "GeoFind?ip=" + ipaddr;
+  
+  $.getJSON( url, function( data ) {
+	  console.log(data);
+	  console.log(data[0].ipAddress)
+	  var items = [];
+	  var trHTML = "";
+	  $.each( data, function( key, val ) {
+		trHTML += "<tr><td>" + val.ipAddress + "</td><td>" + val.Location + "</td></tr>";
+	  });
+	 
+	  $('#records').append(trHTML);
+	});
+  
+}
+</script>
+
+</body>
+</html>
